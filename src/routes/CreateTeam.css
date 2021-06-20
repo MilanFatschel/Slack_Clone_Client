@@ -1,0 +1,9 @@
+Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+Input {
+    margin-bottom: 20px !important;
+}
