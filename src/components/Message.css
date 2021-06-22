@@ -1,0 +1,30 @@
+.message-container {
+    padding: 8px 20px;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: 20px 1fr;
+}
+
+.message-container:hover {
+    background-color: whitesmoke;
+}
+
+.message-container .profile-image {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.message-container .message-header {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    padding-left: 20px;
+}
+
+.message-container .message-body {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  padding-left: 20px;
+  white-space: initial;
+}

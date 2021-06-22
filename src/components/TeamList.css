@@ -1,0 +1,39 @@
+.team-list {
+    background-color: #372332
+}
+
+.team-list h3 {
+    color: white
+}
+
+.team-list ul {
+    color: #CFC2CF;
+    list-style: none;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 15px;
+    overflow-y: auto;
+}
+
+.team-list .list-row {
+    display: flex;
+    height: 28px;
+    padding: 0 16px 0 10px;
+    overflow-x: hidden;
+    cursor: pointer;
+    align-items: center;
+}
+
+.team-list .list-row:hover {
+    background-color: #53364F;
+    color: white;
+}
+
+.team-list .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px 0px 0px;
+    user-select: none;
+}
+

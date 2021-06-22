@@ -1,0 +1,31 @@
+.main-view {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 100px 250px 1fr;
+    grid-template-rows: 50px 1fr 110px;
+  }
+
+  .team-list {
+    grid-column: 1;
+    grid-row: 1 / 4;
+  }
+  
+  .channel-list {
+    grid-column: 2;
+    grid-row: 1 / 4;
+  }
+  
+  .message-header {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  
+  .message-list {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  
+  .message-input {
+    grid-column: 3;
+    grid-row: 3;
+  }

@@ -1,0 +1,9 @@
+.message-list {
+    background-color: #FDFFFD;
+    overflow-y: auto;
+}
+
+.message-list ul {
+    list-style: none;
+    padding: 0;
+}

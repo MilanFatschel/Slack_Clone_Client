@@ -10,6 +10,7 @@ import CreateTeam from './CreateTeam'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
+import MainView from './MainView';
 
 interface IPrivateRouteProps {
     component: any, 
@@ -55,6 +56,7 @@ const Routing =  () => {
               <Route path="/register" exact component={Register}></Route>
               <Route path="/login" exact component={Login}></Route>
               <PrivateRoute path="/create-team" exact component={CreateTeam}></PrivateRoute>
+              <Route path="/main" exact component={MainView}></Route>
           </Switch>
         </Router>
     )

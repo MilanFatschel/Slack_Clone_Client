@@ -1,0 +1,53 @@
+.channel-list {
+    background-color: #53364F;
+    overflow-y: scroll;
+}
+
+.channel-list h3 {
+    color: white
+}
+
+.channel-list h4 {
+    color: #CFC2CF;
+    margin: 0 auto;
+}
+
+.channel-list ul {
+    color: #CFC2CF;
+    list-style: none;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.channel-list .list-row {
+    display: flex;
+    height: 28px;
+    padding: 0 16px 0 30px;
+    overflow-x: hidden;
+    cursor: pointer;
+    align-items: center;
+}
+
+.channel-list .list-row:hover {
+    background-color: #462e42;
+    color: white;
+}
+
+.channel-list .channels .list-row::before{
+    content: "#";
+    margin-right: 10px;
+}
+
+.channel-list .dms .list-row::before{
+    content: "o";
+    margin-right: 10px;
+}
+
+.channel-list .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px 0px 0px;
+    user-select: none;
+}

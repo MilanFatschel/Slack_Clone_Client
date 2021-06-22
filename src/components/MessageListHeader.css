@@ -1,0 +1,10 @@
+.message-list-header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-bottom: thin solid grey;
+    font-size: large;
+    font-weight: bold;
+    padding-left: 20px;
+    user-select: none;
+}
