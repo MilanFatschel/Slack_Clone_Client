@@ -8,11 +8,13 @@
   .team-list {
     grid-column: 1;
     grid-row: 1 / 4;
+    background-color: #372332;
   }
   
   .channel-list {
     grid-column: 2;
     grid-row: 1 / 4;
+    background-color: #53364F;
   }
   
   .message-header {
@@ -28,4 +30,8 @@
   .message-input {
     grid-column: 3;
     grid-row: 3;
+  }
+
+  .loading {
+    color: white; 
   }

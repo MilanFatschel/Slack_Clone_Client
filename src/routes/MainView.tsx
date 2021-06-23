@@ -1,10 +1,9 @@
 import React from 'react';
 import MessageList from '../components/MessageList';
-import ChannelList from '../components/ChannelList';
 import MessageListHeader from '../components/MessageListHeader';
 import MessageInput from '../components/MessageInput';
-import TeamList from '../components/TeamList';
 import "./MainView.css";
+import SideBar from '../containers/SideBar';
 
 interface IMainViewState {
     selectedTeam: number,
@@ -12,19 +11,15 @@ interface IMainViewState {
 }
 
 interface IMainViewProps {
+    match?: any;
 }
 
 class MainView extends React.Component<IMainViewProps, IMainViewState> {
-    state = {
-        selectedTeam: -1,
-        selectedChannel: -1
-    }
 
     render() {
         return (
             <div className="main-view">
-                <TeamList className="team-list"></TeamList>
-                <ChannelList className = "channel-list"></ChannelList>
+                <SideBar currentTeamId={this.props.match.params.teamId}></SideBar>
                 <MessageListHeader className = "message-header"></MessageListHeader>
                 <MessageList className = "message-list"></MessageList>
                 <MessageInput className="message-input"></MessageInput>

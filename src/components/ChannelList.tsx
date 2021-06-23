@@ -1,41 +1,52 @@
 import React from 'react';
+import { IoIosAdd } from 'react-icons/io'
+import IChannel from '../interfaces/IChannel';
 
 import "./ChannelList.css";
 
 interface IChannelListProps {
-    className?: String
+    className?: string
+    channels: IChannel[]
+    teamName: string
 }
 
 interface IChannelListState {
-    channels: any[],
     directMessages: any[]
 }
 
 class ChannelList extends React.Component<IChannelListProps, IChannelListState> {
     state = {
-        channels: ["channel1", "channel2", "channel3", "channel4"],
         directMessages: ["Milan", "Deen", "Justin", "Nikhil", "Dre", "Ben"]
     }
 
     render() {
-        const { channels, directMessages } = this.state;
+        const { teamName, channels } = this.props;
+        const { directMessages } = this.state;
+
         return (
-            <div className="channel-list">
+            <React.Fragment>
               <div className="header">
-                <h3>TEAM NAME</h3>
+                <h3>{teamName}</h3>
               </div> 
+              <div className="header-row">
+                <h4 className="header">Channels</h4>
+                <IoIosAdd id="add-icon" color={"#CFC2CF"} size={26}></IoIosAdd>
+              </div>
                 <ul className="channels">
                 {
-                    channels.map((channel: String, channelIdx: number) => (
-                        <li key={channelIdx}>
+                    channels.map((channel: IChannel, channelIdx: number) => (
+                        <li key={channel.id}>
                             <div className="list-row">
-                                {channel}
+                                {channel.name}
                             </div>
                         </li>
                     ))
                 }
                 </ul>
-                <h4 className="header">Direct Messages</h4>
+                <div className="header-row">
+                  <h4 className="header">Direct Messages</h4>
+                  <IoIosAdd id="add-icon" color={"#CFC2CF"} size={26}></IoIosAdd>
+                </div>
                 <ul className="dms">
                 {
                     directMessages.map((dm: String, dmIdx: number) => (
@@ -47,8 +58,7 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
                     ))
                 }
                 </ul>
-            </div>
-
+            </React.Fragment>
         )
     }
 }

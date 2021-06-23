@@ -1,44 +1,40 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import "./TeamList.css";
 
 interface ITeamListProps {
-    className?: String
-}
-
-interface ITeamListState {
+    className?: String,
     teams: any[]
 }
 
-class TeamList extends React.Component<ITeamListProps, ITeamListState> {
-    state = {
-        teams: ["team1", "team2", "team3", "team4"]
-    }
+class TeamList extends React.Component<ITeamListProps> {
 
     render() {
-        const { teams } = this.state;
+        const { teams } = this.props;
 
         return (
-            <div className="team-list">
+            <React.Fragment>
                 <div className="header">
                   <h3>Teams</h3>
                 </div>
                 <ul>
                   {
-                    teams.map((team: String, teamIdx: number) => (
-                        <li key={teamIdx}>
-                            <div className="list-row">
-                                {team}
-                            </div>
+                    teams.map((team) => (
+                        <li key={team.id}>
+                            <Link to={`/main/${team.id}`}>
+                                <div className="list-row">
+                                    {team.name}
+                                </div>
+                            </Link>
                         </li>
                     ))
                   }
                 </ul>
-            </div>
+            </React.Fragment>
 
         )
     }
 }
-
 
 export default TeamList;

@@ -1,15 +1,11 @@
-.channel-list {
-    background-color: #53364F;
-    overflow-y: scroll;
-}
-
 .channel-list h3 {
     color: white
 }
 
 .channel-list h4 {
     color: #CFC2CF;
-    margin: 0 auto;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .channel-list ul {
@@ -50,4 +46,27 @@
     align-items: center;
     padding: 10px 0px 0px 0px;
     user-select: none;
+}
+
+.header-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.header-row:hover #add-icon {
+    visibility: visible;
+}
+
+.header-row #add-icon {
+    position: absolute;
+    right: 13px;
+    visibility: hidden;
+}
+
+.header-row #add-icon:hover {
+    cursor: pointer;
+    color: white !important;
 }
