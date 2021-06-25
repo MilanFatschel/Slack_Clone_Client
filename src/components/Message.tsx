@@ -1,11 +1,5 @@
 import "./Message.css";
 
-export interface IMessage {
-    username: string,
-    time: Date,
-    text: string
-}
-
 const Message = (props: any) => {
 
 

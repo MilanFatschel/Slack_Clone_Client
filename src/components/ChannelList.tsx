@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoIosAdd } from 'react-icons/io'
+import { Link } from 'react-router-dom';
 import IChannel from '../interfaces/IChannel';
 
 import "./ChannelList.css";
@@ -7,7 +8,11 @@ import "./ChannelList.css";
 interface IChannelListProps {
     className?: string
     channels: IChannel[]
-    teamName: string
+    teamName: string,
+    teamId: number
+    onAddChannelClick: Function,
+    onAddDirectMessageClick: Function
+    currentChannelIdx: number
 }
 
 interface IChannelListState {
@@ -20,7 +25,7 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
     }
 
     render() {
-        const { teamName, channels } = this.props;
+        const { currentChannelIdx, teamName, teamId, channels } = this.props;
         const { directMessages } = this.state;
 
         return (
@@ -30,22 +35,26 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
               </div> 
               <div className="header-row">
                 <h4 className="header">Channels</h4>
-                <IoIosAdd id="add-icon" color={"#CFC2CF"} size={26}></IoIosAdd>
+                <IoIosAdd onClick={() => this.props.onAddChannelClick()} id="add-icon" color={"#CFC2CF"} size={26}></IoIosAdd>
               </div>
                 <ul className="channels">
                 {
-                    channels.map((channel: IChannel, channelIdx: number) => (
-                        <li key={channel.id}>
-                            <div className="list-row">
+                    channels.map((channel: IChannel, channelIdx) => (
+                        <Link to={`/main/${teamId}/${channel.id}`} key={channel.id}>
+                          <li>
+                            <div className="list-row" style={
+                                channelIdx === currentChannelIdx ? {"backgroundColor": "#1264A3"} : {}
+                            }>
                                 {channel.name}
                             </div>
-                        </li>
+                          </li>
+                        </Link>
                     ))
                 }
                 </ul>
                 <div className="header-row">
                   <h4 className="header">Direct Messages</h4>
-                  <IoIosAdd id="add-icon" color={"#CFC2CF"} size={26}></IoIosAdd>
+                  <IoIosAdd onClick={() => this.props.onAddDirectMessageClick()}id="add-icon" color={"#CFC2CF"} size={26}></IoIosAdd>
                 </div>
                 <ul className="dms">
                 {

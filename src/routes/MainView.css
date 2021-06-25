@@ -8,13 +8,17 @@
   .team-list {
     grid-column: 1;
     grid-row: 1 / 4;
-    background-color: #372332;
+    background-color: #340F36;
+    user-select: none;
+    overflow-y: auto;
   }
   
   .channel-list {
     grid-column: 2;
     grid-row: 1 / 4;
-    background-color: #53364F;
+    background-color: rgb(74,22,75);
+    user-select: none;
+    overflow-y: auto;
   }
   
   .message-header {

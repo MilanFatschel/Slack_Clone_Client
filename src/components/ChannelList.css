@@ -9,9 +9,15 @@
 }
 
 .channel-list ul {
-    color: #CFC2CF;
     list-style: none;
     padding: 0;
+    color: #CFC2CF;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.channel-list ul a {
+    color: #CFC2CF;
     font-family: sans-serif;
     font-size: 15px;
 }
@@ -26,7 +32,7 @@
 }
 
 .channel-list .list-row:hover {
-    background-color: #462e42;
+    background-color: #341036;
     color: white;
 }
 

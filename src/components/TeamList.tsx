@@ -5,10 +5,22 @@ import "./TeamList.css";
 
 interface ITeamListProps {
     className?: String,
-    teams: any[]
+    teams: any[],
+    currentTeamIdx: number
 }
 
-class TeamList extends React.Component<ITeamListProps> {
+
+interface ITeamListState {
+}
+
+class TeamList extends React.Component<ITeamListProps, ITeamListState> {
+
+    constructor(props: ITeamListProps) {
+        super(props);
+        this.state = {
+            displayTeams: []
+        }
+    }
 
     render() {
         const { teams } = this.props;
@@ -20,11 +32,16 @@ class TeamList extends React.Component<ITeamListProps> {
                 </div>
                 <ul>
                   {
-                    teams.map((team) => (
+                    teams.map((team, idx) => (
                         <li key={team.id}>
                             <Link to={`/main/${team.id}`}>
                                 <div className="list-row">
-                                    {team.name}
+                                  <div className="team-icon" 
+                                  style={
+                                      idx === this.props.currentTeamIdx ? {"border": "thin solid white"} : {}
+                                  }>
+                                    {team.name[0].toUpperCase()}
+                                  </div>
                                 </div>
                             </Link>
                         </li>

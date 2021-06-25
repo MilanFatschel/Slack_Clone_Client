@@ -2,9 +2,22 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    border-bottom: thin solid grey;
+    border-bottom: thin solid rgb(189, 187, 187);
     font-size: large;
     font-weight: bold;
     padding-left: 20px;
     user-select: none;
+}
+
+.message-list-header .clickable {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    height: 70%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.message-list-header .clickable:hover {
+    background-color: whitesmoke;
 }

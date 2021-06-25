@@ -4,7 +4,8 @@ import { RiSendPlane2Line } from 'react-icons/ri'
 import "./MessageInput.css";
 
 interface IMessageInputProps {
-    className?: string
+    className?: string,
+    currentChannelName?: string
 }
 
 interface IMessageInputState {
@@ -58,7 +59,7 @@ class MessageInput extends React.Component<IMessageInputProps, IMessageInputStat
                   <input id="text-input"
                   type="text" 
                   value={text}
-                  placeholder={"Send a message"}
+                  placeholder={`Send a message to #${this.props.currentChannelName}`}
                   onChange={this.onChangeText}
                   onKeyPress={this.onKeyPress}
                   >
