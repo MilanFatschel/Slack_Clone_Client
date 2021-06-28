@@ -57,7 +57,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
         if(ok) {
             localStorage.setItem('token', token);
             localStorage.setItem('refreshToken', refreshToken);
-            this.props.history.push('/create-team')
+            this.props.history.push('/main')
         } else {
             const errorMap = new Map<String, String>();
             errors.forEach((e: IErrorResponse) => {

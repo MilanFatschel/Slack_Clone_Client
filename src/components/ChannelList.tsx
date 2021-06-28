@@ -1,5 +1,6 @@
 import React from 'react';
 import { IoIosAdd } from 'react-icons/io'
+import { FiSettings } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import IChannel from '../interfaces/IChannel';
 
@@ -11,7 +12,8 @@ interface IChannelListProps {
     teamName: string,
     teamId: number
     onAddChannelClick: Function,
-    onAddDirectMessageClick: Function
+    onAddDirectMessageClick: Function,
+    onAddUserToTeamClick: Function,
     currentChannelIdx: number
 }
 
@@ -32,6 +34,7 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
             <React.Fragment>
               <div className="header">
                 <h3>{teamName}</h3>
+                <FiSettings onClick={() => this.props.onAddUserToTeamClick()} id="settings-icon" color={"#CFC2CF"} size={18}></FiSettings>
               </div> 
               <div className="header-row">
                 <h4 className="header">Channels</h4>
@@ -43,7 +46,7 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
                         <Link to={`/main/${teamId}/${channel.id}`} key={channel.id}>
                           <li>
                             <div className="list-row" style={
-                                channelIdx === currentChannelIdx ? {"backgroundColor": "#1264A3"} : {}
+                                channelIdx === currentChannelIdx ? {"backgroundColor": "#1264A3" , "color": "white"} : {}
                             }>
                                 {channel.name}
                             </div>

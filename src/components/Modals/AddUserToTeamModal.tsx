@@ -4,16 +4,16 @@ import { graphql } from '@apollo/client/react/hoc';
 import { useState } from 'react';
 import { ADDTEAMMEMEBER } from './../../graphql/team'
 
-interface IAddUserToChannelModalProps {
+interface IAddUserToTeamModalProps {
   open: boolean,
   closeModal: Function,
-  onAddUserToChannelSuccess: Function,
+  onAddUserToTeamSuccess: Function,
   mutate?: any,
-  teamId: number
-  channelName: string
+  teamId: number,
+  teamName: string
 }
 
-const AddUserToChannelModal = (props: IAddUserToChannelModalProps) => {
+const AddUserToTeamModal = (props: IAddUserToTeamModalProps) => {
   const [state, setState] = useState({
     email: '',
     isLoading: false
@@ -29,10 +29,13 @@ const AddUserToChannelModal = (props: IAddUserToChannelModalProps) => {
 
   return (
     <Modal
-      onClose={() => props.closeModal()}
+      onClose={() => {
+          setState({...state, email:'', isLoading: false});
+          props.closeModal()}
+        }
       open={props.open}
     >
-      <Modal.Header>Add A User To # {props.channelName}</Modal.Header>
+      <Modal.Header>Add A User To  {props.teamName}</Modal.Header>
       <Modal.Content>
         <Modal.Description style = {{
           'display': 'flex',
@@ -44,25 +47,26 @@ const AddUserToChannelModal = (props: IAddUserToChannelModalProps) => {
           style={{'width': '50%'}}
           value={state.email} 
           onChange={(e) => setState({email: e.target.value, isLoading: state.isLoading})}
-          placeholder={`Enter an email to add a user to # ${props.channelName}`}>
+          placeholder={`Enter an email to add a user to ${props.teamName}`}>
           </Input>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
         <Button color='black' onClick={() => {
-          setState({...state, email:'', isLoading: false});
-          props.closeModal()
-          }}>
+            setState({...state, email:'', isLoading: false});
+            props.closeModal();
+        }}>
           Cancel
         </Button>
         <Button
-          content="Create"
+          content="Add"
           labelPosition='right'
           icon='checkmark'
           onClick={
           async () => {
             setState({...state, isLoading: true});
             try {
+              console.log(state.email + " " + props.teamId)
               const response  = await props.mutate({ 
                 variables: 
                 { 
@@ -86,4 +90,4 @@ const AddUserToChannelModal = (props: IAddUserToChannelModalProps) => {
   )
 }
 
-export default graphql<IAddUserToChannelModalProps>(ADDTEAMMEMEBER)(AddUserToChannelModal)
+export default graphql<IAddUserToTeamModalProps>(ADDTEAMMEMEBER)(AddUserToTeamModal)

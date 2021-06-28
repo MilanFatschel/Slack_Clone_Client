@@ -5,7 +5,7 @@ interface IAddDirectMessageModalProps {
   closeModal: Function
 }
 
-const AddDirectMessageModel = (props: IAddDirectMessageModalProps) => {
+const AddDirectMessageModal = (props: IAddDirectMessageModalProps) => {
   return (
     <Modal
       onClose={() => props.closeModal()}
@@ -34,4 +34,4 @@ const AddDirectMessageModel = (props: IAddDirectMessageModalProps) => {
   )
 }
 
-export default AddDirectMessageModel
+export default AddDirectMessageModal

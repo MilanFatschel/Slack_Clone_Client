@@ -1,13 +1,12 @@
 import React from 'react';
-import MessageList from '../components/MessageList';
-import MessageListHeader from '../components/MessageListHeader';
-import MessageInput from '../components/MessageInput';
 import "./MainView.css";
 import SideBar from '../containers/SideBar';
-import { gql } from '@apollo/client';
 import { withApollo } from '@apollo/client/react/hoc';
 import ITeam from '../interfaces/ITeam';
 import IChannel from '../interfaces/IChannel';
+import { Redirect } from 'react-router-dom';
+import { GET_ALL_TEAMS } from '../graphql/team';
+import MessagesView from '../containers/MessagesView';
 
 interface IMainViewState {
     allTeams: ITeam[],
@@ -43,7 +42,8 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
           query: GET_ALL_TEAMS,
           variables: {}
         }).then((res: any) => {
-            this.setState({allTeams: res.data.allTeams})
+            const invitedTeams = res.data.invitedTeams ? res.data.invitedTeams : [];
+            this.setState({allTeams: [...res.data.allTeams, ...invitedTeams]})
             this.setState({loadingTeams: false});
         })
     }
@@ -65,10 +65,14 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
     render() {
         const { loadingTeams, allTeams } = this.state;
         const { teamId, channelId} = this.props.match.params;
-        let currentTeam = null;
-        let currentChannel = null;
+        let currentTeam = undefined;
+        let currentChannel = undefined;
 
-        const currentTeamIdx = allTeams.findIndex((team) => team.id === parseInt(teamId));
+        if(!loadingTeams && allTeams.length === 0) {
+            return (<Redirect to="/create-team"></Redirect>)
+        }
+
+        let currentTeamIdx = allTeams.findIndex((team) => team.id === parseInt(teamId));
         let currentChannelIdx: number = 0;
         if(currentTeamIdx !== -1) {
             currentTeam = allTeams[currentTeamIdx];
@@ -76,6 +80,9 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
             if(currentChannelIdx !== -1) {
                 currentChannel = currentTeam.channels[currentChannelIdx];
             }
+        } else {
+            currentTeamIdx = 0;
+            currentTeamIdx = 0;
         }
 
         return (
@@ -88,30 +95,15 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
                 loadingTeams={loadingTeams}
                 >
                 </SideBar>
-                <MessageListHeader className="message-header"
-                 currentChannelName={currentChannel?.name || ''}
-                ></MessageListHeader>
-                <MessageList className="message-list"></MessageList>
-                <MessageInput className="message-input"
-                  currentChannelName={currentChannel?.name || ''}>
-                </MessageInput>
+                {
+                    currentChannel ? 
+                    <MessagesView
+                    currentChannel={currentChannel}>
+                    </MessagesView> : null
+                }
             </div>
         )
     }
 }
-
-const GET_ALL_TEAMS = gql`
-{
-    allTeams {
-        id
-        name
-        channels {
-            id
-            name
-        }
-    }
-}
-`
-
 
 export default withApollo<IMainViewProps, IMainViewState>(MainView);

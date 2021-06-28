@@ -5,7 +5,8 @@ import "./MessageInput.css";
 
 interface IMessageInputProps {
     className?: string,
-    currentChannelName?: string
+    currentChannelName?: string,
+    onMessageSubmit: Function
 }
 
 interface IMessageInputState {
@@ -32,7 +33,7 @@ class MessageInput extends React.Component<IMessageInputProps, IMessageInputStat
 
     submitMessage(message: String) {
         if(message.length === 0) return;
-        console.log(message);
+        this.props.onMessageSubmit(message);
         this.setState({text: ''});
     }
 

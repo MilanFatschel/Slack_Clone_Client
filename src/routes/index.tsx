@@ -56,7 +56,7 @@ const Routing =  () => {
               <Route path="/register" exact component={Register}></Route>
               <Route path="/login" exact component={Login}></Route>
               <PrivateRoute path="/create-team" exact component={CreateTeam}></PrivateRoute>
-              <Route path="/main/:teamId?/:channelId?" exact component={MainView}></Route>
+              <PrivateRoute path="/main/:teamId?/:channelId?" exact component={MainView}></PrivateRoute>
           </Switch>
         </Router>
     )

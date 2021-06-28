@@ -2,7 +2,7 @@ import { Button, Header, Modal, Input } from 'semantic-ui-react'
 
 import { graphql } from '@apollo/client/react/hoc';
 import { useState } from 'react';
-import CREATECHANNEL from './../../graphql/team'
+import { CREATECHANNEL } from './../../graphql/team'
 
 interface IAddChannelModalProps {
   open: boolean,
@@ -12,7 +12,7 @@ interface IAddChannelModalProps {
   teamId?: number
 }
 
-const AddChannelModel = (props: IAddChannelModalProps) => {
+const AddChannelModal = (props: IAddChannelModalProps) => {
   const [state, setState] = useState({
     channelName: '',
     isLoading: false
@@ -41,7 +41,9 @@ const AddChannelModel = (props: IAddChannelModalProps) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => props.closeModal()}>
+        <Button color='black' onClick={() => {
+          setState({...state, channelName: ''})
+          props.closeModal()}}>
           Cancel
         </Button>
         <Button
@@ -74,4 +76,4 @@ const AddChannelModel = (props: IAddChannelModalProps) => {
   )
 }
 
-export default graphql<IAddChannelModalProps>(CREATECHANNEL)(AddChannelModel)
+export default graphql<IAddChannelModalProps>(CREATECHANNEL)(AddChannelModal)

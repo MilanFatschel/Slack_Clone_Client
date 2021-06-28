@@ -1,53 +1,30 @@
 import React from 'react';
-import Message from './Message';
-
-import "./MessageList.css";
+import IMessage from '../interfaces/IMessage';
+import Message from "./Message";
 
 interface IMessageListProps {
-    className?: String
+    className?: string,
+    messages: IMessage[]
 }
 
 interface IMessageListState {
-    messages: any[];
 }
 
 class MessageList extends React.Component<IMessageListProps, IMessageListState> {
-    state = {
-        messages: ['1']
-    }
-
     render() {
-        const { messages } = this.state;
+        const { messages } = this.props;
 
         return (
             <div className="message-list">
               <ul>
                 {
-                  messages.map((message: String, messageIdx: number) => (
-                    <li key={messageIdx}>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-                        <Message></Message>
-
+                  messages.map((message: IMessage) => (
+                    <li key={message.id}>
+                      <Message
+                      username={message.user.username}
+                      timeStamp={message.created_at}
+                      text={message.text}
+                      ></Message>
                     </li>
                   ))
                 }

@@ -40,7 +40,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
     render() {
         const { showAddUserToChannelModal} = this.state;
         const currentChannelName = this.props.currentChannelName as string;
-        const displayName = currentChannelName?.length > 0 ? `#${currentChannelName}`: ''
+        const displayName = currentChannelName?.length > 0 ? `# ${currentChannelName}`: ''
 
         return (
             <div className="message-list-header">
@@ -55,6 +55,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
                 closeModal={this.closeModal}
                 onAddUserToChannelSuccess={this.onAddUserToChannelSuccess}
                 channelName={currentChannelName}
+                teamId={1}
                 ></AddUserToChannelModal>   
             </div>
 

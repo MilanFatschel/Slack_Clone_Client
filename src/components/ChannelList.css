@@ -47,11 +47,27 @@
 }
 
 .channel-list .header {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 0px 0px 0px;
     user-select: none;
+}
+
+
+.channel-list .header h3 {
+    margin: 0 !important;
+}
+
+.channel-list .header #settings-icon {
+    position: absolute;
+    right: 16px;
+}
+
+.channel-list .header #settings-icon:hover {
+    cursor: pointer;
+    color: white !important;
 }
 
 .header-row {
