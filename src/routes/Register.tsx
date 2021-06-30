@@ -4,11 +4,13 @@ import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
 
 import './Register.css';
+import { Link } from 'react-router-dom';
 
 interface IRegisterState {
     username: String,
     email: String,
-    password: String
+    password: String,
+    confirmPassword: String,
     usernameError: String,
     passwordError: String,
     emailError: String
@@ -29,6 +31,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         username: '',
         email: '',
         password: '',
+        confirmPassword: '',
         usernameError: '',
         emailError: '',
         passwordError: ''
@@ -47,6 +50,11 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
     onChangePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = event.target;
         this.setState({password: value});
+    };
+
+    onChangeConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const { value } = event.target;
+        this.setState({confirmPassword: value});
     };
 
     onSubmit = async(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -83,7 +91,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 
     render() {
 
-        const {username, email, password, usernameError, emailError, passwordError} = this.state;
+        const {username, email, password, confirmPassword, usernameError, emailError, passwordError} = this.state;
         const errorList = [];
 
         if(usernameError.length > 0) errorList.push(usernameError);
@@ -91,50 +99,65 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         if(emailError.length > 0) errorList.push(emailError); 
 
         return (
-            <Container text>
-                <Header as="h2">
-                    Register
-                </Header>
-                <Input
-                    name="username"
-                    onChange={this.onChangeUsername}
-                    error={usernameError.length > 0}
-                    value={username}
-                    placeholder="Username"
-                    fluid
-                />
-                <Input
-                    name="email"
-                    onChange={this.onChangeEmail}
-                    error={emailError.length > 0}
-                    value={email}
-                    placeholder="Email"
-                    fluid
-                />
-                <Input
-                    name="password"
-                    type="password"
-                    onChange={this.onChangePassword}
-                    error={passwordError.length > 0}
-                    value={password}
-                    placeholder="Password"
-                    fluid
-                />
-                <Button
-                    onClick={this.onSubmit}
-                >
-                    Register
-                </Button>
-                { errorList.length > 0 ? (
-                    <Message
-                    error
-                    header="There was an issue with your submission"
-                    list={errorList}
-                    >
-                    </Message>
-                ) : null
-                }
-            </Container>
+            <div className="register-page">
+                <div className="register-box">
+                    <Header as="h2">
+                        Register
+                    </Header>
+                    <Input
+                        name="username"
+                        onChange={this.onChangeUsername}
+                        error={usernameError.length > 0}
+                        value={username}
+                        placeholder="Username"
+                        fluid
+                    />
+                    <Input
+                        name="email"
+                        onChange={this.onChangeEmail}
+                        error={emailError.length > 0}
+                        value={email}
+                        placeholder="Email"
+                        fluid
+                    />
+                    <Input
+                        name="password"
+                        type="password"
+                        onChange={this.onChangePassword}
+                        error={passwordError.length > 0}
+                        value={password}
+                        placeholder="Password"
+                        fluid
+                    />
+                    <Input
+                        name="confirmPassword"
+                        type="password"
+                        onChange={this.onChangeConfirmPassword}
+                        error={passwordError.length > 0}
+                        value={confirmPassword}
+                        placeholder="Confirm Password"
+                        fluid
+                    />
+                    <div className="footer">
+                        <div id="login-text">Already have an account?&nbsp;&nbsp;<Link to={`/login`}>Log in</Link></div>
+                        <Button
+                            onClick={this.onSubmit}
+                        >
+                            Register
+                        </Button>
+                    </div>
+                    { 
+                      errorList.length > 0 ? (
+                        <Message
+                        error
+                        header="There was an issue with your submission"
+                        list={errorList}
+                        >
+                        </Message>
+                       ) : null
+                    }
+                </div>
+            </div>
         )
     }
 }

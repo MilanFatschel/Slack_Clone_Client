@@ -1,3 +1,31 @@
 Input {
     margin-bottom: 20px !important;
 }
+
+.register-page {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(119, 44, 121);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-box {
+    height: 400px;
+    width: 400px;
+    background-color: #fff;
+    padding: 35px;
+    border-radius: 5px;
+}
+
+.register-box #login-text {
+    padding: 30px 0;
+}
+
+.register-box .footer {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}

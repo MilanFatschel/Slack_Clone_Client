@@ -71,33 +71,35 @@ class CreateTeam extends React.Component<ICreateTeamProps, ICreateTeamState> {
         if(nameError.length > 0) errorList.push(nameError);
 
         return (
-            <Container text>
-                <Header as="h2">
-                    Create Team
-                </Header>
-                <Input
-                    name="teamName"
-                    onChange={this.onChangeTeamName}
-                    error={nameError.length > 0}
-                    value={name}
-                    placeholder="Team Name"
-                    fluid
-                />
-                <Button
-                    onClick={this.onSubmit}
-                >
-                    Create Team
-                </Button>
-                { errorList.length > 0 ? (
-                    <Message
-                    error
-                    header="There was an issue with your submission"
-                    list={errorList}
+            <div className="create-team-page">
+                <div className="create-team-box">
+                    <Header as="h2">
+                        Create Team
+                    </Header>
+                    <Input
+                        name="teamName"
+                        onChange={this.onChangeTeamName}
+                        error={nameError.length > 0}
+                        value={name}
+                        placeholder="Team Name"
+                        fluid
+                    />
+                    <Button
+                        onClick={this.onSubmit}
                     >
-                    </Message>
-                ) : null
-                }
-            </Container>
+                        Create Team
+                    </Button>
+                    { errorList.length > 0 ? (
+                        <Message
+                        error
+                        header="There was an issue with your submission"
+                        list={errorList}
+                        >
+                        </Message>
+                    ) : null
+                    }
+                </div>
+            </div>
         )
     }
 }

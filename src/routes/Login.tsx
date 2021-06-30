@@ -4,6 +4,7 @@ import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
 
 import './Login.css';
+import { Link } from 'react-router-dom';
 
 interface ILoginState {
     email: String,
@@ -76,42 +77,47 @@ class Login extends React.Component<ILoginProps, ILoginState> {
         if(emailError.length > 0) errorList.push(emailError); 
 
         return (
-            <Container text>
-                <Header as="h2">
-                    Login
-                </Header>
-                <Input
-                    name="email"
-                    onChange={this.onChangeEmail}
-                    error={emailError.length > 0}
-                    value={email}
-                    placeholder="Email"
-                    fluid
-                />
-                <Input
-                    name="password"
-                    type="password"
-                    onChange={this.onChangePassword}
-                    error={passwordError.length > 0}
-                    value={password}
-                    placeholder="Password"
-                    fluid
-                />
-                <Button
-                    onClick={this.onSubmit}
-                >
-                    Login
-                </Button>
-                { errorList.length > 0 ? (
-                    <Message
-                    error
-                    header="There was an issue with your submission"
-                    list={errorList}
-                    >
-                    </Message>
-                ) : null
-                }
-            </Container>
+            <div className="login-page">
+                <div className="login-box">
+                    <Header id="login-text" as="h2">
+                        Login
+                    </Header>
+                    <Input
+                        name="email"
+                        onChange={this.onChangeEmail}
+                        error={emailError.length > 0}
+                        value={email}
+                        placeholder="Email"
+                        fluid
+                    />
+                    <Input
+                        name="password"
+                        type="password"
+                        onChange={this.onChangePassword}
+                        error={passwordError.length > 0}
+                        value={password}
+                        placeholder="Password"
+                        fluid
+                    />
+                    <div className="footer">
+                        <div id="sign-up-text">No account?&nbsp;&nbsp;<Link to={`/register`}>Sign up</Link></div>
+                        <Button
+                            onClick={this.onSubmit}
+                        >
+                            Login
+                        </Button>
+                    </div>
+                    { errorList.length > 0 ? (
+                        <Message
+                        error
+                        header="There was an issue with your submission"
+                        list={errorList}
+                        >
+                        </Message>
+                    ) : null
+                    }
+                </div>
+            </div>
         )
     }
 }

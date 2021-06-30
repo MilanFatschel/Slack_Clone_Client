@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 
 class Home extends React.Component {
@@ -7,7 +8,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <h1>Home</h1>
+            <Redirect to={`/login`}></Redirect>
         )
     }
 }
