@@ -48,6 +48,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
                   {displayName}
                   <IoIosArrowDown 
                     size={13} 
+                    style={{"marginLeft": "3px"}}
                   ></IoIosArrowDown>
                 </div> 
                 <AddUserToChannelModal

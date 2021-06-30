@@ -4,13 +4,17 @@ import SideBar from '../containers/SideBar';
 import { withApollo } from '@apollo/client/react/hoc';
 import ITeam from '../interfaces/ITeam';
 import IChannel from '../interfaces/IChannel';
-import { Redirect } from 'react-router-dom';
 import { GET_ALL_TEAMS } from '../graphql/team';
 import MessagesView from '../containers/MessagesView';
+import { Redirect } from 'react-router-dom';
+import { HeaderBar } from '../containers/HeaderBar';
+import { IUser } from '../interfaces/IUser';
+import decode from 'jwt-decode';
 
 interface IMainViewState {
     allTeams: ITeam[],
     loadingTeams: boolean,
+    user?: IUser
 }
 
 interface IMainViewProps {
@@ -25,14 +29,27 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
         super(props)
         this.state = {
             loadingTeams: true,
-            allTeams: []
+            allTeams: [],
+            user: undefined
         }
 
         this.addChannelToState = this.addChannelToState.bind(this);
     }
 
     componentDidMount() {
+        this.setState({user: this.getUserFromTokens()})
         this.getAllTeams();
+    }
+
+    getUserFromTokens = () => {
+        try {
+            const token = localStorage.getItem('token') as string;
+            const decoder = decode(token) as any;
+            console.log(decoder);
+            return decoder.user;
+          } catch (err) {
+              console.log(err);
+          }
     }
 
     getAllTeams = async() => {
@@ -40,7 +57,8 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
         this.props.client
         .query({
           query: GET_ALL_TEAMS,
-          variables: {}
+          variables: {},
+          fetchPolicy: 'network-only'
         }).then((res: any) => {
             const invitedTeams = res.data.invitedTeams ? res.data.invitedTeams : [];
             this.setState({allTeams: [...res.data.allTeams, ...invitedTeams]})
@@ -63,14 +81,10 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
     }
 
     render() {
-        const { loadingTeams, allTeams } = this.state;
+        const { loadingTeams, allTeams, user } = this.state;
         const { teamId, channelId} = this.props.match.params;
         let currentTeam = undefined;
         let currentChannel = undefined;
-
-        if(!loadingTeams && allTeams.length === 0) {
-            return (<Redirect to="/create-team"></Redirect>)
-        }
 
         let currentTeamIdx = allTeams.findIndex((team) => team.id === parseInt(teamId));
         let currentChannelIdx: number = 0;
@@ -85,8 +99,15 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
             currentTeamIdx = 0;
         }
 
+        if(!loadingTeams && allTeams.length === 0) {
+            return <Redirect to={`/create-team`}></Redirect>
+        }
+
         return (
             <div className="main-view">
+                <HeaderBar
+                user={user}
+                ></HeaderBar>
                 <SideBar 
                 currentTeamIdx={currentTeamIdx}
                 currentChannelIdx={currentChannelIdx}

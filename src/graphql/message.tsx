@@ -20,3 +20,17 @@ export const CREATEMESSAGE = gql`
     createMessage(channelId: $channelId, text: $text)
   }
 `;
+
+// Subscriptions
+export const NEWCHANNELMESSAGESUBSCRIPTION = gql`
+  subscription($channelId: Int!) {
+    newChannelMessage(channelId: $channelId) {
+      id
+      text
+      user {
+        username
+      }
+      created_at
+    }
+  }
+`;

@@ -2,40 +2,48 @@
     display: grid;
     height: 100vh;
     grid-template-columns: 100px 250px 1fr;
-    grid-template-rows: 50px 1fr 110px;
-  }
+    grid-template-rows: 50px 50px 1fr 110px;
+}
 
-  .team-list {
-    grid-column: 1;
-    grid-row: 1 / 4;
-    background-color: #340F36;
-    user-select: none;
-    overflow-y: auto;
-  }
-  
-  .channel-list {
-    grid-column: 2;
-    grid-row: 1 / 4;
-    background-color: rgb(74,22,75);
-    user-select: none;
-    overflow-y: auto;
-  }
-  
-  .message-header {
-    grid-column: 3;
-    grid-row: 1;
-  }
-  
-  .message-list {
-    grid-column: 3;
-    grid-row: 2;
-  }
-  
-  .message-input {
-    grid-column: 3;
-    grid-row: 3;
-  }
+.header-bar {
+  grid-column: 1 / 4;
+  grid-row: 1; 
+  background-color: #340F36;
+  align-items: center;
+  position: relative;
+}
 
-  .loading {
-    color: white; 
-  }
+.team-list {
+  grid-column: 1;
+  grid-row: 2 / 5;
+  background-color: #340F36;
+  user-select: none;
+  overflow-y: auto;
+}
+
+.channel-list {
+  grid-column: 2;
+  grid-row: 2 / 5;
+  background-color: rgb(74,22,75);
+  user-select: none;
+  overflow-y: auto;
+}
+
+.message-header {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.message-list {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.message-input {
+  grid-column: 3;
+  grid-row: 4;
+}
+
+.loading {
+  color: white; 
+}

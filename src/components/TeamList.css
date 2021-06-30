@@ -45,6 +45,10 @@
     border: thin solid white;
 }
 
+.team-list #add-icon:hover {
+    color: white;
+}
+
 .team-list .header {
     display: flex;
     justify-content: center;

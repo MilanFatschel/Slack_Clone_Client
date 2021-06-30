@@ -54,6 +54,12 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
                         </Link>
                     ))
                 }
+                    <li>
+                        <div className="list-row-action" onClick={() => this.props.onAddChannelClick()}> 
+                          <IoIosAdd id="add-icon" size={26} style={{"marginRight": "3px"}}></IoIosAdd> 
+                          Add Channels 
+                        </div>
+                    </li>
                 </ul>
                 <div className="header-row">
                   <h4 className="header">Direct Messages</h4>

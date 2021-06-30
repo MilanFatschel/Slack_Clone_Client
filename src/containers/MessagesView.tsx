@@ -6,7 +6,6 @@ import MessageListHeader from "../components/MessageListHeader";
 import IChannel from "../interfaces/IChannel";
 import IMessage from "../interfaces/IMessage"
 import { CREATEMESSAGE, GETMESSAGES } from "../graphql/message";
-
 interface IMessageProps {
     data?: any
     client?: any,
@@ -18,7 +17,7 @@ interface IMessageState {
     messages: IMessage[]
 }
 
-class Message extends React.Component<IMessageProps, IMessageState> {
+class MessagesView extends React.Component<IMessageProps, IMessageState> {
     constructor(props: IMessageProps) {
         super(props);
         this.state = {
@@ -27,17 +26,18 @@ class Message extends React.Component<IMessageProps, IMessageState> {
         }
 
         this.onMessageSubmit = this.onMessageSubmit.bind(this);
+        this.onNewChannelMessage = this.onNewChannelMessage.bind(this);
     }
 
     componentDidMount() {
         this.getMessagesForChannel(this.props.currentChannel.id);
     }
 
-    componentDidUpdate(prevProps: IMessageProps){
+    componentDidUpdate(prevProps: IMessageProps) {
         if(prevProps.currentChannel.id !==this.props.currentChannel.id){
           this.getMessagesForChannel(this.props.currentChannel.id);
         }
-      }
+    }
 
     getMessagesForChannel = async(channelId: number) => {
         this.setState({loadingMessages: true})
@@ -45,9 +45,11 @@ class Message extends React.Component<IMessageProps, IMessageState> {
         .query({
           query: GETMESSAGES,
           variables: {
-              channelId: this.props.currentChannel.id
-          }
-        }).then((res: any) => {
+              channelId
+          },
+          fetchPolicy: 'network-only'
+        },).then((res: any) => {
+            console.log(res.data.messages);
             this.setState({messages: res.data.messages, loadingMessages: false});
         });
     }
@@ -61,6 +63,13 @@ class Message extends React.Component<IMessageProps, IMessageState> {
               text: message
           }
         })
+    }
+
+    onNewChannelMessage = (message: IMessage) => {
+      const { messages } = this.state;
+      console.log(message);
+      const addedMessageList = [...messages, message];
+      this.setState({messages: addedMessageList});
     }
     
     render() {
@@ -79,7 +88,9 @@ class Message extends React.Component<IMessageProps, IMessageState> {
                  currentChannelName={currentChannel.name || ''}
                 ></MessageListHeader>
                 <MessageList className="message-list"
+                currentChannelId={currentChannel.id}
                 messages={messages}
+                onNewChannelMessage={this.onNewChannelMessage}
                 ></MessageList>
                 <MessageInput className="message-input"
                   currentChannelName={currentChannel.name || ''}
@@ -90,4 +101,4 @@ class Message extends React.Component<IMessageProps, IMessageState> {
     }
 }
 
-export default withApollo<IMessageProps, IMessageState>(Message);
+export default withApollo<IMessageProps, IMessageState>(MessagesView);

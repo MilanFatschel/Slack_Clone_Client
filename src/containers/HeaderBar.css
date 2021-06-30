@@ -1,0 +1,16 @@
+.profile-image-header {
+   position: absolute;
+   right: 30px;
+   top: 10px;
+   width: 32px;
+   height: 32px;
+   cursor: pointer;
+}
+
+.profile-image-header img {
+    border-radius: 20%;
+  } 
+
+.profile-image-header img:hover {
+    filter: brightness(1.1);
+} 

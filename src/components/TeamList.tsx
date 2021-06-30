@@ -1,4 +1,5 @@
 import React from 'react';
+import { IoIosAdd } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 import "./TeamList.css";
@@ -24,6 +25,7 @@ class TeamList extends React.Component<ITeamListProps, ITeamListState> {
 
     render() {
         const { teams } = this.props;
+        console.log(teams);
 
         return (
             <React.Fragment>
@@ -46,7 +48,14 @@ class TeamList extends React.Component<ITeamListProps, ITeamListState> {
                             </Link>
                         </li>
                     ))
-                  }
+                }
+                    <li>
+                      <Link to={`/create-team`}>
+                          <div className="list-row">
+                              <IoIosAdd id="add-icon" size={26}></IoIosAdd>
+                            </div>
+                        </Link>
+                    </li>
                 </ul>
             </React.Fragment>
 
