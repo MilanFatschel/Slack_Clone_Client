@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message, Input, Container, Header, Button } from 'semantic-ui-react';
+import { Message, Input, Header, Button } from 'semantic-ui-react';
 import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
 
@@ -13,7 +13,8 @@ interface IRegisterState {
     confirmPassword: String,
     usernameError: String,
     passwordError: String,
-    emailError: String
+    emailError: String,
+    confirmPasswordError: String
 }
 
 interface IRegisterProps {
@@ -34,7 +35,8 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         confirmPassword: '',
         usernameError: '',
         emailError: '',
-        passwordError: ''
+        passwordError: '',
+        confirmPasswordError: ''
     }
 
     onChangeUsername = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -58,13 +60,20 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
     };
 
     onSubmit = async(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const { username, email, password, confirmPassword } = this.state;
+        
         this.setState({
             usernameError: '',
             emailError: '',
-            passwordError: ''
-        })
+            passwordError: '',
+            confirmPasswordError: ''
+        });
 
-        const { username, email, password } = this.state;
+        if(password !== confirmPassword) {
+            this.setState({confirmPasswordError: "Passwords do not match!"})
+            return;
+        }
+
 
         const response = await this.props.mutate({
             variables: {
@@ -84,19 +93,20 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
             const errorMap = new Map<String, String>();
             errors.forEach((e: IErrorResponse) => {
                 errorMap.set(`${e.path}Error`, e.message);
-            });
+            })
             this.setState(Object.fromEntries(errorMap));
         }
     }
 
     render() {
 
-        const {username, email, password, confirmPassword, usernameError, emailError, passwordError} = this.state;
+        const {username, email, password, confirmPassword, usernameError, emailError, passwordError, confirmPasswordError} = this.state;
         const errorList = [];
 
         if(usernameError.length > 0) errorList.push(usernameError);
         if(passwordError.length > 0) errorList.push(passwordError);
         if(emailError.length > 0) errorList.push(emailError); 
+        if(confirmPasswordError.length > 0) errorList.push(confirmPasswordError);
 
         return (
             <div className="register-page">
@@ -133,7 +143,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                         name="confirmPassword"
                         type="password"
                         onChange={this.onChangeConfirmPassword}
-                        error={passwordError.length > 0}
+                        error={confirmPasswordError.length > 0}
                         value={confirmPassword}
                         placeholder="Confirm Password"
                         fluid
@@ -141,6 +151,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                     <div className="footer">
                         <div id="login-text">Already have an account?&nbsp;&nbsp;<Link to={`/login`}>Log in</Link></div>
                         <Button
+                            disabled={username.length === 0 || email.length === 0 || password.length === 0 || confirmPassword.length === 0}
                             onClick={this.onSubmit}
                         >
                             Register

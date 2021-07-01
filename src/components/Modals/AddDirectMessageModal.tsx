@@ -1,4 +1,4 @@
-import { Button, Header, Modal, Input } from 'semantic-ui-react'
+import { Button, Modal, Input } from 'semantic-ui-react'
 
 interface IAddDirectMessageModalProps {
   open: boolean,
@@ -13,9 +13,16 @@ const AddDirectMessageModal = (props: IAddDirectMessageModalProps) => {
     >
       <Modal.Header>Create A New Direct Message</Modal.Header>
       <Modal.Content>
-        <Modal.Description>
-          <Header>To:</Header>
-          <Input></Input>
+      <Modal.Description style = {{
+          'display': 'flex',
+          'height': '100%',
+          'alignItems': 'center',
+          'justifyContent': 'center'
+        }}>
+          <Input
+           style={{'width': '50%'}}
+           placeholder={`Enter an email to direct message a new user`}>
+          </Input>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -28,6 +35,7 @@ const AddDirectMessageModal = (props: IAddDirectMessageModalProps) => {
           icon='checkmark'
           onClick={() => props.closeModal()}
           positive
+          disabled={true}
         />
       </Modal.Actions>
     </Modal>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message, Input, Container, Header, Button } from 'semantic-ui-react';
+import { Message, Input, Header, Button } from 'semantic-ui-react';
 import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
 
@@ -102,6 +102,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                     <div className="footer">
                         <div id="sign-up-text">No account?&nbsp;&nbsp;<Link to={`/register`}>Sign up</Link></div>
                         <Button
+                            disabled={email.length === 0 || password.length === 0}
                             onClick={this.onSubmit}
                         >
                             Login

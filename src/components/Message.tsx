@@ -1,17 +1,17 @@
-import moment from 'moment';
-
 import profile from "./../assets/profile.png";
 import "./Message.css";
 
 interface IMessageProps {
     username: string,
-    timeStamp: Date,
+    timeStamp: string,
     text: string
 }
 
 const Message = (props: IMessageProps) => {
 
-    const formattedDate = (moment(props.timeStamp, 'DD/MM/YYYY')).format('YYYY-MM-DD[T]HH:mm:ss');
+    
+
+   const formattedDate = new Date(parseInt(props.timeStamp, 10)).toLocaleTimeString([], {timeStyle: 'short'});
 
     return (
         <div className="message-container">

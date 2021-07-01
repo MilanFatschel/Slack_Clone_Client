@@ -23,7 +23,7 @@ interface IChannelListState {
 
 class ChannelList extends React.Component<IChannelListProps, IChannelListState> {
     state = {
-        directMessages: ["Milan", "Deen", "Justin", "Nikhil", "Dre", "Ben"]
+        directMessages: []
     }
 
     render() {
@@ -75,6 +75,12 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
                         </li>
                     ))
                 }
+                 <li>
+                    <div className="list-row-action" onClick={() => this.props.onAddDirectMessageClick()}> 
+                        <IoIosAdd id="add-icon" size={26} style={{"marginRight": "3px"}}></IoIosAdd> 
+                         Add Direct Message
+                    </div>
+                    </li>
                 </ul>
             </React.Fragment>
         )

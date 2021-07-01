@@ -1,6 +1,8 @@
 .message-list {
     background-color: #FDFFFD;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .message-list ul {

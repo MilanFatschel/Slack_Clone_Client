@@ -1,4 +1,4 @@
-import { Button, Header, Modal, Input } from 'semantic-ui-react'
+import { Button, Modal, Input } from 'semantic-ui-react'
 
 import { graphql } from '@apollo/client/react/hoc';
 import { useState } from 'react';
@@ -33,10 +33,18 @@ const AddChannelModal = (props: IAddChannelModalProps) => {
     >
       <Modal.Header>Create A New Channel</Modal.Header>
       <Modal.Content>
-        <Modal.Description>
-          <Header>Channel Name:</Header>
-          <Input value={state.channelName} onChange={(e) => 
-            setState({channelName: e.target.value, isLoading: state.isLoading})}>
+        <Modal.Description style = {{
+            'display': 'flex',
+            'height': '100%',
+            'alignItems': 'center',
+            'justifyContent': 'center'
+          }}>
+          <Input 
+          style={{'width': '50%'}}
+          value={state.channelName} 
+          onChange={(e) => 
+            setState({channelName: e.target.value, isLoading: state.isLoading})}
+            placeholder={`Enter a new channel name`}>
           </Input>
         </Modal.Description>
       </Modal.Content>
@@ -50,6 +58,7 @@ const AddChannelModal = (props: IAddChannelModalProps) => {
           content="Create"
           labelPosition='right'
           icon='checkmark'
+          disabled={state.channelName.length === 0}
           onClick={
           async () => {
             setState({...state, isLoading: true});

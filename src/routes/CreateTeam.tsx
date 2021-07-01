@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message, Input, Container, Header, Button } from 'semantic-ui-react';
+import { Message, Input, Header, Button } from 'semantic-ui-react';
 import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
 
@@ -86,6 +86,7 @@ class CreateTeam extends React.Component<ICreateTeamProps, ICreateTeamState> {
                     />
                     <Button
                         onClick={this.onSubmit}
+                        disabled={name.length === 0}
                     >
                         Create Team
                     </Button>

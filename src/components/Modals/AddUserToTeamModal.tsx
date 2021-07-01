@@ -62,6 +62,7 @@ const AddUserToTeamModal = (props: IAddUserToTeamModalProps) => {
           content="Add"
           labelPosition='right'
           icon='checkmark'
+          disabled={state.email.length === 0}
           onClick={
           async () => {
             setState({...state, isLoading: true});

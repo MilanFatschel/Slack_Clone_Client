@@ -59,6 +59,7 @@ const AddUserToChannelModal = (props: IAddUserToChannelModalProps) => {
           content="Create"
           labelPosition='right'
           icon='checkmark'
+          disabled={state.email.length === 0}
           onClick={
           async () => {
             setState({...state, isLoading: true});
