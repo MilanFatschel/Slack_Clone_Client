@@ -25,8 +25,7 @@ class TeamList extends React.Component<ITeamListProps, ITeamListState> {
 
     render() {
         const { teams } = this.props;
-        console.log(teams);
-
+        
         return (
             <React.Fragment>
                 <div className="header">

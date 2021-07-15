@@ -8,9 +8,7 @@ interface IMessageProps {
 }
 
 const Message = (props: IMessageProps) => {
-
     
-
    const formattedDate = new Date(parseInt(props.timeStamp, 10)).toLocaleTimeString([], {timeStyle: 'short'});
 
     return (

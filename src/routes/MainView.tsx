@@ -45,7 +45,6 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
         try {
             const token = localStorage.getItem('token') as string;
             const decoder = decode(token) as any;
-            console.log(decoder);
             return decoder.user;
           } catch (err) {
               console.log(err);
@@ -60,8 +59,8 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
           variables: {},
           fetchPolicy: 'network-only'
         }).then((res: any) => {
-            const invitedTeams = res.data.invitedTeams ? res.data.invitedTeams : [];
-            this.setState({allTeams: [...res.data.allTeams, ...invitedTeams]})
+            console.log(res);
+            this.setState({allTeams: [...res.data.allTeams, ...res.data.inviteTeams]})
             this.setState({loadingTeams: false});
         })
     }

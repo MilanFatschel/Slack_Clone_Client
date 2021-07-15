@@ -50,8 +50,6 @@ class CreateTeam extends React.Component<ICreateTeamProps, ICreateTeamState> {
 
         const {errors, ok, team} = response.data.createTeam;
 
-        console.log(response);
-
         if(ok) {
             this.props.history.push(`/main/${team.id}`)
         } else {

@@ -67,7 +67,6 @@ const AddUserToTeamModal = (props: IAddUserToTeamModalProps) => {
           async () => {
             setState({...state, isLoading: true});
             try {
-              console.log(state.email + " " + props.teamId)
               const response  = await props.mutate({ 
                 variables: 
                 { 
@@ -75,7 +74,6 @@ const AddUserToTeamModal = (props: IAddUserToTeamModalProps) => {
                   teamId: props.teamId
                 } 
               })
-              console.log(response);
               // props.onAddUserToChannelSuccess(response.data.createChannel.channel) 
             } catch(error) {
               console.log(error);

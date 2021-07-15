@@ -85,8 +85,6 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 
         const {errors, ok} = response.data.createUser;
 
-        console.log(response);
-
         if(ok) {
             this.props.history.push('/login')
         } else {
