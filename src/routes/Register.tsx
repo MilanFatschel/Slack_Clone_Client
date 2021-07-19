@@ -2,6 +2,8 @@ import React from 'react';
 import { Message, Input, Header, Button } from 'semantic-ui-react';
 import { gql } from '@apollo/client';
 import { graphql } from '@apollo/client/react/hoc';
+import profile from "./../assets/profile.png";
+
 
 import './Register.css';
 import { Link } from 'react-router-dom';

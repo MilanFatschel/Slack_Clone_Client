@@ -56,7 +56,7 @@ const AddUserToChannelModal = (props: IAddUserToChannelModalProps) => {
           Cancel
         </Button>
         <Button
-          content="Create"
+          content="Add"
           labelPosition='right'
           icon='checkmark'
           disabled={state.email.length === 0}

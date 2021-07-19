@@ -10,7 +10,7 @@ import { Redirect } from 'react-router-dom';
 import { HeaderBar } from '../containers/HeaderBar';
 import { IUser } from '../interfaces/IUser';
 import decode from 'jwt-decode';
-
+import { GET_USER } from '../graphql/user';
 interface IMainViewState {
     allTeams: ITeam[],
     loadingTeams: boolean,
@@ -21,6 +21,7 @@ interface IMainViewProps {
     match?: any;
     client?: any;
     currentTeamId?: string,
+    history: any
 }
 
 class MainView extends React.Component<IMainViewProps, IMainViewState> {
@@ -37,18 +38,31 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
     }
 
     componentDidMount() {
-        this.setState({user: this.getUserFromTokens()})
+        this.getUser();
         this.getAllTeams();
     }
 
-    getUserFromTokens = () => {
+    getUserIdFromTokens = async() => {
         try {
             const token = localStorage.getItem('token') as string;
             const decoder = decode(token) as any;
+            console.log(decoder);
             return decoder.user;
           } catch (err) {
               console.log(err);
           }
+    }
+
+    getUser = async() => {
+        const { id } = await this.getUserIdFromTokens();
+        console.log(id);
+        this.props.client
+        .query({
+          query: GET_USER,
+          variables: { id },
+        }).then((res: any) => {
+            this.setState({user: res.data.getUser})
+        })   
     }
 
     getAllTeams = async() => {
@@ -59,10 +73,19 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
           variables: {},
           fetchPolicy: 'network-only'
         }).then((res: any) => {
-            console.log(res);
-            this.setState({allTeams: [...res.data.allTeams, ...res.data.inviteTeams]})
-            this.setState({loadingTeams: false});
+            let allTeams = this.sortTeamChannels([...res.data.allTeams, ...res.data.inviteTeams])
+            this.setState({allTeams, loadingTeams: false});
         })
+    }
+
+    sortTeamChannels = (teams: any) => {
+        teams = teams.map((team: { channels: any; })=> {
+            const sortedChannels = [...team.channels];
+            sortedChannels.sort((a: any, b: any) =>  a.name.localeCompare(b.name));
+            return {...team, channels: sortedChannels};
+        });
+
+        return teams;
     }
 
     addChannelToState = (addedChannel: IChannel) => {
@@ -86,16 +109,15 @@ class MainView extends React.Component<IMainViewProps, IMainViewState> {
         let currentChannel = undefined;
 
         let currentTeamIdx = allTeams.findIndex((team) => team.id === parseInt(teamId));
-        let currentChannelIdx: number = 0;
+        let currentChannelIdx: number = -1;
+
+        // Get team and channel indexes for selection
         if(currentTeamIdx !== -1) {
             currentTeam = allTeams[currentTeamIdx];
             currentChannelIdx = currentTeam.channels.findIndex((channel) => channel.id === parseInt(channelId));
             if(currentChannelIdx !== -1) {
                 currentChannel = currentTeam.channels[currentChannelIdx];
             }
-        } else {
-            currentTeamIdx = 0;
-            currentTeamIdx = 0;
         }
 
         if(!loadingTeams && allTeams.length === 0) {

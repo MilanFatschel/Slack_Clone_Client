@@ -19,16 +19,33 @@ interface IChannelListProps {
 
 interface IChannelListState {
     directMessages: any[]
+    displayMessages: any[];
+    displayChannels: any[];
 }
 
 class ChannelList extends React.Component<IChannelListProps, IChannelListState> {
     state = {
-        directMessages: []
+        displayMessages: [],
+        displayChannels: [],
+        directMessages: ["Brad Johnson","Sarah Bin", 
+        "Tom Smith", "Josh Star", "Michel West",
+        "Zach Augustin", "Paul Sheer", "Marie Vin", "Lousie Hardy", "Gabriel Var"]
+    }
+
+    componentDidMount() {
+    }
+
+    componentDidUpdate(prevProps: IChannelListProps) {
+        if(prevProps.teamId !== this.props.teamId) {
+            const displayChannels = [...this.props.channels];
+            const displayMessages = [...this.state.directMessages].sort();
+            this.setState({displayChannels, displayMessages});
+        }
     }
 
     render() {
-        const { currentChannelIdx, teamName, teamId, channels } = this.props;
-        const { directMessages } = this.state;
+        const { currentChannelIdx, teamName, teamId } = this.props;
+        const { displayMessages, displayChannels } = this.state;
 
         return (
             <React.Fragment>
@@ -42,7 +59,7 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
               </div>
                 <ul className="channels">
                 {
-                    channels.map((channel: IChannel, channelIdx) => (
+                    displayChannels.map((channel: IChannel, channelIdx) => (
                         <Link to={`/main/${teamId}/${channel.id}`} key={channel.id}>
                           <li>
                             <div className="list-row" style={
@@ -67,7 +84,7 @@ class ChannelList extends React.Component<IChannelListProps, IChannelListState> 
                 </div>
                 <ul className="dms">
                 {
-                    directMessages.map((dm: String, dmIdx: number) => (
+                    displayMessages.map((dm: String, dmIdx: number) => (
                         <li key={dmIdx}>
                             <div className="list-row">
                                 {dm}
